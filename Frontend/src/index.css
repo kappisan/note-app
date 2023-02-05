@@ -1,4 +1,6 @@
+html,
 body {
+  height: 100%;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -10,4 +12,50 @@ body {
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+table {
+  margin: 40px 0;
+  width: 100%;
+}
+
+tr:nth-child(even) {
+    background-color: #00000022;
+}
+
+td {
+  padding-right: 40px;
+}
+
+#root {
+  padding: 0;
+  height: 100%;
+}
+
+
+/* Gradient Background */
+
+.gradient {
+  height: 100%;
+  background-image: linear-gradient(
+    135deg,
+    #16697A,
+    #489FB5,
+    #82C0CC,
+    #EDE7E3
+    );
+    background-size: 400% 400%;
+    animation: gradient 20s ease infinite ;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
