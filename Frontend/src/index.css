@@ -20,11 +20,28 @@ table {
 }
 
 tr:nth-child(even) {
-    background-color: #00000022;
+  background-color: #00000022;
+}
+
+tr {
+  padding: 20px 0;
 }
 
 td {
   padding-right: 40px;
+}
+
+input[type="checkbox"] {
+  appearance: none;
+  background-color: #fff;
+  margin: 0;
+  font: inherit;
+  color: currentColor;
+  width: 1.35em;
+  height: 1.35em;
+  border: 0.14em solid #333;
+  border-radius: 0.35em;
+  transform: translateY(-0.075em);
 }
 
 #root {

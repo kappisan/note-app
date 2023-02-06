@@ -3,16 +3,21 @@ import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 
-// import TaskModal from './components/TaskModal/TaskModal.tsx';
-
-
 import './App.css';
 
 const TodoApp = () => {
 
+  const newTodo = {
+    added: '',
+    task: '',
+    completed: false,
+    added: ''
+  }
+
   const today = new Date().toDateString();
   const [show, setShow] = useState(false);
-  const [todo, setTodo] = useState({});
+  const [todo, setTodo] = useState(newTodo);
+
   
   const showEdit = (todo) => {
     console.log("handle show", todo);
@@ -20,7 +25,6 @@ const TodoApp = () => {
     setShow(true);
   }
   
-
   const closeEdit = () => setShow(false);
 
   // will be empty
@@ -33,13 +37,33 @@ const TodoApp = () => {
     setTodos([...todos, { id: todos.length + 1, task, completed: false, added: new Date().toDateString() }]);
   };
 
-  const editTodo = (id, task) => {
-    setTodos(
-      todos.map((todo) =>
-        todo.id === id ? { ...todo, task } : todo
-      )
-    );
+  const saveTodo = () => {
+    if (!todo.id) {
+      setTodos([
+        ...todos,
+        {
+          ...todo,
+          added: new Date().toDateString(),
+          id: todos.length + 1
+        }
+      ]);
+    } else {
+      setTodos(
+        todos.map((td) =>
+          todo.id === td.id ? todo : td
+        )
+      );
+    }
+    closeEdit();
   };
+
+  const handleChangeTask = (event) => {
+    console.log(event.target.value, todo);
+    setTodo({
+      ...todo,
+      task: event.target.value
+    });
+  }
 
   return (
     <div className="gradient">
@@ -47,14 +71,14 @@ const TodoApp = () => {
 
         <Modal show={show} onHide={closeEdit}>
           <Modal.Header closeButton>
-            <Modal.Title>Modal heading</Modal.Title>
+            <Modal.Title>Edit Todo</Modal.Title>
           </Modal.Header>
-          <Modal.Body>{todo.task}</Modal.Body>
+          <Modal.Body><input type="text" value={todo.task || ""} onChange={handleChangeTask}></input></Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={closeEdit}>
               Close
             </Button>
-            <Button variant="primary" onClick={() => { /*editTodo(todo.id, prompt('Edit Todo:', todo.task));*/ }}>
+            <Button variant="primary" onClick={saveTodo}>
               Save Changes
             </Button>
           </Modal.Footer>
@@ -74,19 +98,18 @@ const TodoApp = () => {
           <tbody>
             {todos.map((todo) => (
               <tr key={todo.id}>
-                <td><input type='checkbox' value={todo.done} /></td>
+                <td><input type='checkbox' /></td>
                 <td>{todo.added}</td>
                 <td>{todo.task}</td>
                 <td>
-                  <button type="button" className="btn btn-primary" onClick={ () => showEdit(todo) }>
-                    Edit
-                  </button>
+                  <img src={require("./img/edit-icon.png")} className="edit-icon" onClick={ () => showEdit(todo) } />
+                  
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button type="button" className="btn btn-primary" onClick={() => addTodo(prompt('Add Todo:'))}>Add Todo</button>
+        <button type="button" className="btn btn-primary" onClick={showEdit}>Add Todo</button>
       </div>
     </div>
   );
