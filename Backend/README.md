@@ -1,16 +1,27 @@
 # API
-This server uses the Express framework to handle incoming HTTP requests and provide RESTful API endpoints for interacting with the SQLite database. The /getNotes endpoint returns all notes stored in the database, the /createNote endpoint creates a new note, and the /editNote endpoint edits an existing note.
 
-# NodeJS
+This server uses Node JS and the Express framework to handle incoming HTTP requests and provide RESTful API endpoints for interacting with the SQLite database. 
+
+## NodeJS
 
 Endpoints:
 
->/getNotes
->/createNote
->/editNote
+The /api/getNotes endpoint returns all notes stored in the database.
+
+>/api/getNotes
+
+The /api/createNote endpoint creates a new note.
+
+>/api/createNote
+
+The /api/editNote endpoint edits an existing note.
+
+>/api/editNote
 
 
-# SQL
+
+
+## SQL
 
 To set up the SQLite database used in the backend, you need to run the following commands in the terminal:
 
