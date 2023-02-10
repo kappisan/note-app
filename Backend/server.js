@@ -3,7 +3,7 @@ const sqlite3 = require('sqlite3').verbose();
 const jwt = require('jsonwebtoken');
 
 const app = express();
-const port = 3000;
+const port = 3001;
 const secretKey = 'yoursecretkey';
 
 const db = new sqlite3.Database(':memory:', (err) => {
@@ -24,7 +24,7 @@ db.run(
 app.use(express.json());
 
 // Create a new user
-app.post('/createUser', (req, res) => {
+app.post('/api/createUser', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required' });
@@ -43,7 +43,7 @@ app.post('/createUser', (req, res) => {
 });
 
 // Login a user
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
   const { username, password } = req.body;
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required' });
@@ -67,7 +67,7 @@ app.post('/login', (req, res) => {
 
 
 // Get all notes for a user
-app.get('/getNotes', (req, res) => {
+app.get('/api/getNotes', (req, res) => {
     const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({ error: 'Access token is required' });
@@ -87,7 +87,7 @@ app.get('/getNotes', (req, res) => {
   });
   
 // Create a new note
-app.post('/createNote', (req, res) => {
+app.post('/api/createNote', (req, res) => {
 const token = req.headers.authorization;
 if (!token) {
     return res.status(401).json({ error: 'Access token is required' });
@@ -116,7 +116,7 @@ jwt.verify(token, secretKey, (err, decoded) => {
 });
 
 // Edit a note
-app.put('/editNote/:id', (req, res) => {
+app.put('/api/editNote/:id', (req, res) => {
     const token = req.headers.authorization;
     if (!token) {
       return res.status(401).json({ error: 'Access token is required' });
