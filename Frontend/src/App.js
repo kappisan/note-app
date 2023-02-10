@@ -16,6 +16,7 @@ const TodoApp = () => {
   }
 
   const today = new Date().toDateString();
+  const [user, setUser] = useState({});
   const [show, setShow] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(newTodo);
 
@@ -83,6 +84,13 @@ const TodoApp = () => {
 
   return (
     <div className="gradient">
+
+      <div className="cloud x1"></div>
+      <div className="cloud x2"></div>
+      <div className="cloud x3"></div>
+      <div className="cloud x4"></div>
+      <div className="cloud x5"></div>
+
       <div className="container">
 
         <Modal show={show} onHide={closeEdit}>
@@ -100,7 +108,7 @@ const TodoApp = () => {
           </Modal.Footer>
         </Modal>
 
-        <h1>To-Do List</h1>
+        <h1 className="title">To-Do List</h1>
         <table>
           <thead>
             <tr>
@@ -130,7 +138,7 @@ const TodoApp = () => {
             ))}
           </tbody>
         </table>
-        <button type="button" className="btn btn-primary" onClick={addTodo}>New Todo</button>
+        <button type="button" className="add-new" onClick={addTodo}>New Todo</button>
       </div>
     </div>
   );

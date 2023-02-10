@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto+Mono:wght@100&family=Roboto:wght@300&display=swap');
+
 html,
 body {
   height: 100%;
@@ -7,6 +9,30 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+h1 {
+  text-align: center;
+  font-size: 4em;
+}
+
+h1, 
+h2, 
+h3,
+h4,
+th {
+  font-family: "Amatic SC", sans-serif;
+  font-weight: 700;
+}
+
+li,
+p,
+button {
+  font-family: Roboto, sans-serif;
+}
+
+th {
+  font-size: 26pt;
 }
 
 code {
@@ -54,28 +80,138 @@ input[type="checkbox"] {
 
 .gradient {
   height: 100%;
-  background-image: linear-gradient(
-    135deg,
-    #16697A,
-    #489FB5,
-    #82C0CC,
-    #EDE7E3
-    );
-    background-size: 400% 400%;
-    animation: gradient 20s ease infinite ;
-    position: fixed;
-    width: 100%;
-    overflow-y: scroll;
+	background: #c9dbe9;
+	background: -webkit-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+	background: -linear-gradient(top, #c9dbe9 0%, #fff 100%);
+	background: -moz-linear-gradient(top, #c9dbe9 0%, #fff 100%);
+  background-size: 400% 400%;
+  animation: gradient 20s ease infinite ;
+  position: fixed;
+  width: 100%;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }
 
-@keyframes gradient {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+
+
+/* clouds */
+
+body {
+	/*To hide the horizontal scroller appearing during the animation*/
+	overflow: hidden;
+}
+
+/*Time to finalise the cloud shape*/
+.cloud {
+	width: 200px; height: 60px;
+	background: #fff;
+	opacity: 0.8;
+	border-radius: 200px;
+	-moz-border-radius: 200px;
+	-webkit-border-radius: 200px;
+	filter: blur(5px);
+	position: absolute; 
+  top: 100px;
+}
+
+.cloud:before, .cloud:after {
+	content: '';
+	position: absolute; 
+	background: #fff;
+	width: 100px; height: 80px;
+	position: absolute; top: -15px; left: 10px;
+	
+	border-radius: 100px;
+	-moz-border-radius: 100px;
+	-webkit-border-radius: 100px;
+	
+	-webkit-transform: rotate(30deg);
+	transform: rotate(30deg);
+	-moz-transform: rotate(30deg);
+}
+
+.cloud:after {
+	width: 120px; height: 120px;
+	top: -55px; left: auto; right: 15px;
+}
+
+/*Time to animate*/
+.x1 {
+	-webkit-animation: moveclouds 15s linear infinite;
+	-moz-animation: moveclouds 15s linear infinite;
+	-o-animation: moveclouds 15s linear infinite;
+}
+
+/*variable speed, opacity, and position of clouds for realistic effect*/
+.x2 {
+	right: 200px;
+	
+	-webkit-transform: scale(0.6);
+	-moz-transform: scale(0.6);
+	transform: scale(0.6);
+	opacity: 0.6; /*opacity proportional to the size*/
+	
+	/*Speed will also be proportional to the size and opacity*/
+	/*More the speed. Less the time in 's' = seconds*/
+	-webkit-animation: moveclouds 25s linear infinite;
+	-moz-animation: moveclouds 25s linear infinite;
+	-o-animation: moveclouds 25s linear infinite;
+  animation-delay: -20s;
+}
+
+.x3 {
+	right: -250px; top: 20px;
+	
+	-webkit-transform: scale(0.8);
+	-moz-transform: scale(0.8);
+	transform: scale(0.8);
+	opacity: 0.8; /*opacity proportional to the size*/
+	
+	-webkit-animation: moveclouds 20s linear infinite;
+	-moz-animation: moveclouds 20s linear infinite;
+	-o-animation: moveclouds 20s linear infinite;
+  animation-delay: -10s;
+}
+
+.x4 {
+	right: 470px; top: 60px;
+	
+	-webkit-transform: scale(0.75);
+	-moz-transform: scale(0.75);
+	transform: scale(0.75);
+	opacity: 0.75; /*opacity proportional to the size*/
+	
+	-webkit-animation: moveclouds 38s linear infinite;
+	-moz-animation: moveclouds 38s linear infinite;
+	-o-animation: moveclouds 38s linear infinite;
+}
+
+.x5 {
+	right: -150px; top: 50px;
+	
+	-webkit-transform: scale(0.8);
+	-moz-transform: scale(0.8);
+	transform: scale(0.8);
+	opacity: 0.8; /*opacity proportional to the size*/
+	
+	-webkit-animation: moveclouds 50s linear infinite;
+	-moz-animation: moveclouds 50s linear infinite;
+	-o-animation: moveclouds 50s linear infinite;
+}
+
+@-webkit-keyframes moveclouds {
+	0% {left: 110vw;}
+	100% {left: -10vw;}
+}
+@-moz-keyframes moveclouds {
+	0% {left: 110vw;}
+	100% {left: -10vw;}
+}
+@-o-keyframes moveclouds {
+	0% {left: 110vw;}
+	100% {left: -10vw;}
+}
+@keyframes moveclouds {
+	0% {left: 110vw;}
+	100% {left: -10vw;}
 }

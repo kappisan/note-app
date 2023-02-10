@@ -1,32 +1,10 @@
-@import url('https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Roboto+Mono:wght@100&family=Roboto:wght@300&display=swap');
-
-h1 {
-  text-align: center;
-  font-size: 4em;
-}
-
-h1, 
-h2, 
-h3,
-h4 {
-  font-family: "Amatic SC", sans-serif;
-  font-weight: 700;
-}
-
-li,
-p,
-button {
-  font-family: Roboto, sans-serif;
-}
-
-
 .container {
   background-color: #fff7;
   margin-top: 40px;
   margin-bottom: 40px;
   position: relative;
   border-radius: 10px;
-  padding: 60px 40px 100px;
+  padding: 20px 40px 40px;
 }
 
 .edit-icon {
@@ -42,4 +20,18 @@ button {
   font-family: "Amatic SC", sans-serif;
   font-weight: 700;
   font-size: 32pt;
+}
+
+.title {
+  font-size: 52pt;
+}
+
+.add-new {
+  padding: 6px 20px;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #555;
+  font-family: "Amatic SC", sans-serif;
+  font-size: 24pt;
+  font-weight: 700;
 }
