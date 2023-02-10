@@ -49,14 +49,6 @@ tr:nth-child(even) {
   background-color: #00000022;
 }
 
-tr {
-  padding: 20px 0;
-}
-
-td {
-  padding-right: 40px;
-}
-
 input[type="checkbox"] {
   appearance: none;
   background-color: #fff;
@@ -73,6 +65,10 @@ input[type="checkbox"] {
 #root {
   padding: 0;
   height: 100%;
+}
+
+.center {
+  text-align: center;
 }
 
 

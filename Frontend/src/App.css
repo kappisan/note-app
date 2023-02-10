@@ -35,3 +35,8 @@
   font-size: 24pt;
   font-weight: 700;
 }
+
+.desaturate {
+  filter: grayscale(100%);
+  opacity: 0.3;
+}

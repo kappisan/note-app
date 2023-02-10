@@ -37,10 +37,7 @@ const TodoApp = () => {
 
   const startList = [
     { id: uuid(), added: today, task: 'Do laundry', completed: true },
-    { id: uuid(), added: today, task: 'Buy groceries', completed: false },
-    { id: uuid(), added: today, task: 'Wash car', completed: false },
-    { id: uuid(), added: today, task: 'Mow lawn', completed: false },
-    { id: uuid(), added: today, task: 'Replace broken lightbulb', completed: false },
+    { id: uuid(), added: today, task: 'Buy groceries', completed: false }
   ];
 
   // will be empty
@@ -64,6 +61,13 @@ const TodoApp = () => {
     window.localStorage.setItem('todos', JSON.stringify(tds));
     closeEdit();
   };
+
+  const deleteTodo = (todo) => {
+    const tds = todos.filter(t => t.id != todo.id)
+  
+    setTodos(tds);
+    window.localStorage.setItem('todos', JSON.stringify(tds));
+  }
 
   const handleChangeTask = (event) => {
     setCurrentTodo({
@@ -109,27 +113,30 @@ const TodoApp = () => {
         <table>
           <thead>
             <tr>
-              <th>Done</th>
+              <th className="text-center">Done</th>
               <th>Added</th>
               <th>Task</th>
+              <th></th>
               <th></th>
             </tr>
           </thead>
           <tbody>
             {todos.map((todo) => (
               <tr key={todo.id}>
-                <td>
-                    <button
-                      type="button"
-                      className={todo.completed ? 'btn btn-success' : 'btn btn-primary'}
-                      onClick={() => toggleComplete(todo) }>
-                        {todo.completed ? "Reopen" : "Mark Done" }
-                    </button>
+                <td className="text-center">
+                  <img
+                    src={require("./img/accept.png")}
+                    className="edit-icon"
+                    className={todo.completed ? 'edit-icon' : 'edit-icon desaturate'}
+                    onClick={() => toggleComplete(todo) } />
                 </td>
                 <td>{todo.added}</td>
                 <td>{todo.task}</td>
                 <td>
                   { !todo.completed && <img src={require("./img/edit-icon.png")} className="edit-icon" onClick={ () => showEdit(todo) } /> }
+                </td>
+                <td>
+                  <img src={require("./img/trash.png")} className="edit-icon" onClick={ () => deleteTodo(todo) } />
                 </td>
               </tr>
             ))}
