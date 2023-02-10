@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import uuid from 'react-uuid';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -16,53 +17,68 @@ const TodoApp = () => {
 
   const today = new Date().toDateString();
   const [show, setShow] = useState(false);
-  const [todo, setTodo] = useState(newTodo);
+  const [currentTodo, setCurrentTodo] = useState(newTodo);
 
-  
   const showEdit = (todo) => {
-    console.log("handle show", todo);
-    setTodo(todo);
+    setCurrentTodo(todo);
     setShow(true);
   }
   
+  const addTodo = () => {
+    setCurrentTodo({
+      ...newTodo,
+      id: uuid()
+    });
+    setShow(true);
+  }
+
   const closeEdit = () => setShow(false);
 
   // will be empty
   const [todos, setTodos] = useState([
-    { id: 1, added: today, done: true, task: 'Do laundry', completed: false },
-    { id: 2, added: today, done: false, task: 'Buy groceries', completed: false },
+    { id: uuid(), added: today, task: 'Do laundry', completed: true },
+    { id: uuid(), added: today, task: 'Buy groceries', completed: false },
+    { id: uuid(), added: today, task: 'Wash car', completed: false },
+    { id: uuid(), added: today, task: 'Mow lawn', completed: false },
+    { id: uuid(), added: today, task: 'Replace broken lightbulb', completed: false },
   ]);
 
-  const addTodo = (task) => {
-    setTodos([...todos, { id: todos.length + 1, task, completed: false, added: new Date().toDateString() }]);
-  };
-
   const saveTodo = () => {
-    if (!todo.id) {
+
+    if (todos.find(t => t.id === currentTodo.id)) {
+      setTodos(
+        todos.map((td) =>
+        currentTodo.id === td.id ? currentTodo : td
+        )
+      );
+    } else {
       setTodos([
         ...todos,
         {
-          ...todo,
+          ...currentTodo,
           added: new Date().toDateString(),
-          id: todos.length + 1
+          id: uuid()
         }
       ]);
-    } else {
-      setTodos(
-        todos.map((td) =>
-          todo.id === td.id ? todo : td
-        )
-      );
     }
+
     closeEdit();
   };
 
   const handleChangeTask = (event) => {
-    console.log(event.target.value, todo);
-    setTodo({
-      ...todo,
+    setCurrentTodo({
+      ...currentTodo,
       task: event.target.value
     });
+  }
+
+  const toggleComplete = (todo) => {
+    todo.completed = !todo.completed;
+    setTodos(
+      todos.map((td) =>
+        todo.id === td.id ? todo : td
+      )
+    );
   }
 
   return (
@@ -73,7 +89,7 @@ const TodoApp = () => {
           <Modal.Header closeButton>
             <Modal.Title>Edit Todo</Modal.Title>
           </Modal.Header>
-          <Modal.Body><input type="text" value={todo.task || ""} onChange={handleChangeTask}></input></Modal.Body>
+          <Modal.Body><input type="text" value={currentTodo.task || ""} onChange={handleChangeTask}></input></Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={closeEdit}>
               Close
@@ -83,7 +99,6 @@ const TodoApp = () => {
             </Button>
           </Modal.Footer>
         </Modal>
-
 
         <h1>To-Do List</h1>
         <table>
@@ -98,18 +113,24 @@ const TodoApp = () => {
           <tbody>
             {todos.map((todo) => (
               <tr key={todo.id}>
-                <td><input type='checkbox' /></td>
+                <td>
+                    <button
+                      type="button"
+                      className={todo.completed ? 'btn btn-success' : 'btn btn-primary'}
+                      onClick={() => toggleComplete(todo) }>
+                        {todo.completed ? "Reopen" : "Mark Done" }
+                    </button>
+                </td>
                 <td>{todo.added}</td>
                 <td>{todo.task}</td>
                 <td>
-                  <img src={require("./img/edit-icon.png")} className="edit-icon" onClick={ () => showEdit(todo) } />
-                  
+                  { !todo.completed && <img src={require("./img/edit-icon.png")} className="edit-icon" onClick={ () => showEdit(todo) } /> }
                 </td>
               </tr>
             ))}
           </tbody>
         </table>
-        <button type="button" className="btn btn-primary" onClick={showEdit}>Add Todo</button>
+        <button type="button" className="btn btn-primary" onClick={addTodo}>New Todo</button>
       </div>
     </div>
   );
