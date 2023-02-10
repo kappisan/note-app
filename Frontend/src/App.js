@@ -35,34 +35,33 @@ const TodoApp = () => {
 
   const closeEdit = () => setShow(false);
 
-  // will be empty
-  const [todos, setTodos] = useState([
+  const startList = [
     { id: uuid(), added: today, task: 'Do laundry', completed: true },
     { id: uuid(), added: today, task: 'Buy groceries', completed: false },
     { id: uuid(), added: today, task: 'Wash car', completed: false },
     { id: uuid(), added: today, task: 'Mow lawn', completed: false },
     { id: uuid(), added: today, task: 'Replace broken lightbulb', completed: false },
-  ]);
+  ];
+
+  // will be empty
+  const [todos, setTodos] = useState(JSON.parse(window.localStorage.getItem('todos')) || startList);
 
   const saveTodo = () => {
-
+    let tds = [];
     if (todos.find(t => t.id === currentTodo.id)) {
-      setTodos(
-        todos.map((td) =>
-        currentTodo.id === td.id ? currentTodo : td
-        )
-      );
+      tds = todos.map((td) => currentTodo.id === td.id ? currentTodo : td );
     } else {
-      setTodos([
+      tds = [
         ...todos,
         {
           ...currentTodo,
           added: new Date().toDateString(),
           id: uuid()
         }
-      ]);
+      ];
     }
-
+    setTodos(tds);
+    window.localStorage.setItem('todos', JSON.stringify(tds));
     closeEdit();
   };
 
@@ -75,11 +74,9 @@ const TodoApp = () => {
 
   const toggleComplete = (todo) => {
     todo.completed = !todo.completed;
-    setTodos(
-      todos.map((td) =>
-        todo.id === td.id ? todo : td
-      )
-    );
+    const tds = todos.map((td) => todo.id === td.id ? todo : td)
+    setTodos(tds);
+    window.localStorage.setItem('todos', JSON.stringify(tds));
   }
 
   return (
