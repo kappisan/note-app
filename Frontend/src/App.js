@@ -17,7 +17,7 @@ const TodoApp = () => {
 
   const today = new Date().toDateString();
   const [user, setUser] = useState({});
-  const [show, setShow] = useState(false);
+  const [editVisible, setShow] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(newTodo);
 
   const showEdit = (todo) => {
@@ -43,6 +43,11 @@ const TodoApp = () => {
   // will be empty
   const [todos, setTodos] = useState(JSON.parse(window.localStorage.getItem('todos')) || startList);
 
+  const save = (todos) => {
+    setTodos(todos);
+    window.localStorage.setItem('todos', JSON.stringify(todos));
+  }
+
   const saveTodo = () => {
     let tds = [];
     if (todos.find(t => t.id === currentTodo.id)) {
@@ -57,16 +62,12 @@ const TodoApp = () => {
         }
       ];
     }
-    setTodos(tds);
-    window.localStorage.setItem('todos', JSON.stringify(tds));
+    save(tds);
     closeEdit();
   };
 
   const deleteTodo = (todo) => {
-    const tds = todos.filter(t => t.id != todo.id)
-  
-    setTodos(tds);
-    window.localStorage.setItem('todos', JSON.stringify(tds));
+    save(todos.filter(t => t.id != todo.id));
   }
 
   const handleChangeTask = (event) => {
@@ -78,14 +79,13 @@ const TodoApp = () => {
 
   const toggleComplete = (todo) => {
     todo.completed = !todo.completed;
-    const tds = todos.map((td) => todo.id === td.id ? todo : td)
-    setTodos(tds);
-    window.localStorage.setItem('todos', JSON.stringify(tds));
+    save(todos.map((td) => todo.id === td.id ? todo : td))
   }
 
   return (
     <div className="gradient">
 
+      <img className="sun" src={require("./img/sun.png")} />
       <div className="cloud x1"></div>
       <div className="cloud x2"></div>
       <div className="cloud x3"></div>
@@ -94,7 +94,7 @@ const TodoApp = () => {
 
       <div className="container">
 
-        <Modal show={show} onHide={closeEdit}>
+        <Modal show={editVisible} onHide={closeEdit}>
           <Modal.Header closeButton>
             <Modal.Title>Edit Todo</Modal.Title>
           </Modal.Header>
@@ -102,6 +102,9 @@ const TodoApp = () => {
           <Modal.Footer>
             <Button variant="secondary" onClick={closeEdit}>
               Close
+            </Button>
+            <Button variant="success" onClick={() => { toggleComplete(currentTodo); closeEdit() } }>
+              Mark Complete
             </Button>
             <Button variant="primary" onClick={saveTodo}>
               Save Changes
@@ -112,7 +115,7 @@ const TodoApp = () => {
         <h1 className="title">To-Do List</h1>
         <table>
           <thead>
-            <tr>
+            <tr className="underline">
               <th className="text-center">Done</th>
               <th>Added</th>
               <th>Task</th>
@@ -126,7 +129,6 @@ const TodoApp = () => {
                 <td className="text-center">
                   <img
                     src={require("./img/accept.png")}
-                    className="edit-icon"
                     className={todo.completed ? 'edit-icon' : 'edit-icon desaturate'}
                     onClick={() => toggleComplete(todo) } />
                 </td>

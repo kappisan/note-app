@@ -88,7 +88,36 @@ input[type="checkbox"] {
   overflow-x: hidden;
 }
 
+/* sun */
 
+.sun {
+  position: absolute;
+  right: 100px;
+  top: 40px;
+  width: 200px;
+  opacity: 0.6;
+  transform: rotate(0);
+
+	-webkit-animation: rotateSun 10s linear infinite;
+	-moz-animation: rotateSun 10s linear infinite;
+	-o-animation: rotateSun 10s linear infinite;
+	animation: rotateSun 10s linear infinite;
+
+}
+
+@keyframes rotateSun {
+	0% {transform: rotate(10deg);}
+	25% {transform: rotate(45deg);}
+	50% {transform: rotate(10deg);}
+	75% {transform: rotate(-25deg);}
+	100% {transform: rotate(10deg);}
+}
+
+.underline {
+  border-style: solid;
+  border-width: 0 0 2px;
+  border-color: #888;
+}
 
 /* clouds */
 
@@ -105,7 +134,7 @@ body {
 	border-radius: 200px;
 	-moz-border-radius: 200px;
 	-webkit-border-radius: 200px;
-	filter: blur(5px);
+	filter: blur(8px);
 	position: absolute; 
   top: 100px;
 }
@@ -133,9 +162,9 @@ body {
 
 /*Time to animate*/
 .x1 {
-	-webkit-animation: moveclouds 15s linear infinite;
-	-moz-animation: moveclouds 15s linear infinite;
-	-o-animation: moveclouds 15s linear infinite;
+	-webkit-animation: moveclouds 37s linear infinite;
+	-moz-animation: moveclouds 37s linear infinite;
+	-o-animation: moveclouds 37s linear infinite;
 }
 
 /*variable speed, opacity, and position of clouds for realistic effect*/
@@ -149,10 +178,10 @@ body {
 	
 	/*Speed will also be proportional to the size and opacity*/
 	/*More the speed. Less the time in 's' = seconds*/
-	-webkit-animation: moveclouds 25s linear infinite;
-	-moz-animation: moveclouds 25s linear infinite;
-	-o-animation: moveclouds 25s linear infinite;
-  animation-delay: -20s;
+	-webkit-animation: moveclouds 53s linear infinite;
+	-moz-animation: moveclouds 53s linear infinite;
+	-o-animation: moveclouds 53s linear infinite;
+  animation-delay: -40s;
 }
 
 .x3 {
@@ -163,10 +192,10 @@ body {
 	transform: scale(0.8);
 	opacity: 0.8; /*opacity proportional to the size*/
 	
-	-webkit-animation: moveclouds 20s linear infinite;
-	-moz-animation: moveclouds 20s linear infinite;
-	-o-animation: moveclouds 20s linear infinite;
-  animation-delay: -10s;
+	-webkit-animation: moveclouds 43s linear infinite;
+	-moz-animation: moveclouds 43s linear infinite;
+	-o-animation: moveclouds 43s linear infinite;
+  animation-delay: -20s;
 }
 
 .x4 {
@@ -177,9 +206,9 @@ body {
 	transform: scale(0.75);
 	opacity: 0.75; /*opacity proportional to the size*/
 	
-	-webkit-animation: moveclouds 38s linear infinite;
-	-moz-animation: moveclouds 38s linear infinite;
-	-o-animation: moveclouds 38s linear infinite;
+	-webkit-animation: moveclouds 79s linear infinite;
+	-moz-animation: moveclouds 79s linear infinite;
+	-o-animation: moveclouds 79s linear infinite;
 }
 
 .x5 {
@@ -190,9 +219,9 @@ body {
 	transform: scale(0.8);
 	opacity: 0.8; /*opacity proportional to the size*/
 	
-	-webkit-animation: moveclouds 50s linear infinite;
-	-moz-animation: moveclouds 50s linear infinite;
-	-o-animation: moveclouds 50s linear infinite;
+	-webkit-animation: moveclouds 53s linear infinite;
+	-moz-animation: moveclouds 53s linear infinite;
+	-o-animation: moveclouds 53s linear infinite;
 }
 
 @-webkit-keyframes moveclouds {
