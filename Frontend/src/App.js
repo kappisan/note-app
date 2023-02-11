@@ -1,9 +1,7 @@
 import React, { useState } from 'react';
 import uuid from 'react-uuid';
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button';
-
+import EditModal from './components/EditModal';
 import './App.css';
 
 const TodoApp = () => {
@@ -16,7 +14,6 @@ const TodoApp = () => {
   }
 
   const today = new Date().toDateString();
-  const [user, setUser] = useState({});
   const [editVisible, setShow] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(newTodo);
 
@@ -94,23 +91,14 @@ const TodoApp = () => {
 
       <div className="container">
 
-        <Modal show={editVisible} onHide={closeEdit}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Todo</Modal.Title>
-          </Modal.Header>
-          <Modal.Body><input type="text" value={currentTodo.task || ""} onChange={handleChangeTask}></input></Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={closeEdit}>
-              Close
-            </Button>
-            <Button variant="success" onClick={() => { toggleComplete(currentTodo); closeEdit() } }>
-              Mark Complete
-            </Button>
-            <Button variant="primary" onClick={saveTodo}>
-              Save Changes
-            </Button>
-          </Modal.Footer>
-        </Modal>
+        <EditModal
+          show={editVisible}
+          closeEdit={closeEdit}
+          currentTodo={currentTodo}
+          handleChangeTask={handleChangeTask}
+          toggleComplete={toggleComplete}
+          saveTodo={saveTodo}
+        />
 
         <h1 className="title">To-Do List</h1>
         <table>
