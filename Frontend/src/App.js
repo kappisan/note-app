@@ -13,13 +13,12 @@ const TodoApp = () => {
     added: ''
   }
 
-  const today = new Date().toDateString();
-  const [editVisible, setShow] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(newTodo);
 
   const showEdit = (todo) => {
     setCurrentTodo(todo);
-    setShow(true);
+    setShowEditModal(true);
   }
   
   const addTodo = () => {
@@ -27,14 +26,14 @@ const TodoApp = () => {
       ...newTodo,
       id: uuid()
     });
-    setShow(true);
+    setShowEditModal(true);
   }
 
-  const closeEdit = () => setShow(false);
+  const closeEdit = () => setShowEditModal(false);
 
   const startList = [
-    { id: uuid(), added: today, task: 'Do laundry', completed: true },
-    { id: uuid(), added: today, task: 'Buy groceries', completed: false }
+    { id: uuid(), added: new Date().toDateString(), task: 'Do laundry', completed: true },
+    { id: uuid(), added: new Date().toDateString(), task: 'Buy groceries', completed: false }
   ];
 
   // will be empty
@@ -92,7 +91,7 @@ const TodoApp = () => {
       <div className="container">
 
         <EditModal
-          show={editVisible}
+          show={showEditModal}
           closeEdit={closeEdit}
           currentTodo={currentTodo}
           handleChangeTask={handleChangeTask}
