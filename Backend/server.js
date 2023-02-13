@@ -1,9 +1,12 @@
-const express = require('express');
-const sqlite3 = require('sqlite3').verbose();
-const jwt = require('jsonwebtoken');
+const express = require('express'),
+      path = require('path');
+      route = require('route'),
+      sqlite3 = require('sqlite3').verbose(),
+      jwt = require('jsonwebtoken'),
+      port = 3001,
+      frontend = '../Frontend/build';
 
 const app = express();
-const port = 3001;
 const secretKey = 'yoursecretkey';
 
 const db = new sqlite3.Database(':memory:', (err) => {
@@ -48,6 +51,7 @@ app.post('/api/login', (req, res) => {
   if (!username || !password) {
     return res.status(400).json({ error: 'Username and password are required' });
   }
+  console.log("USERNAME:", username, "PASSWORD: ", password);
   db.get(
     'SELECT * FROM users WHERE username = ? AND password = ?',
     username,
@@ -148,6 +152,8 @@ app.put('/api/editNote/:id', (req, res) => {
       );
     });
 });
+
+app.use(express.static(path.resolve(__dirname, frontend)));
 
 app.listen(port, () => {
   console.log(`Server running at http://localhost:${port}`);
