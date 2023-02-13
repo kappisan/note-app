@@ -49,6 +49,16 @@ tr:nth-child(even) {
   background-color: #00000022;
 }
 
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  border-radius: 8px;
+  border-style: solid;
+  border-color: #888;
+  border-width: 1px;
+  height: 36px;
+}
+
 input[type="checkbox"] {
   appearance: none;
   background-color: #fff;
@@ -60,6 +70,16 @@ input[type="checkbox"] {
   border: 0.14em solid #333;
   border-radius: 0.35em;
   transform: translateY(-0.075em);
+}
+
+textarea {
+  width: 100%;
+  min-height: 140px;
+}
+
+label,
+input {
+  display: block;
 }
 
 #root {

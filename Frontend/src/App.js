@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import uuid from 'react-uuid';
 
 import EditModal from './components/EditModal';
+import LoginModal from './components/LoginModal';
 import './App.css';
 
 const TodoApp = () => {
@@ -14,13 +15,14 @@ const TodoApp = () => {
   }
 
   const [showEditModal, setShowEditModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const [currentTodo, setCurrentTodo] = useState(newTodo);
 
   const showEdit = (todo) => {
     setCurrentTodo(todo);
     setShowEditModal(true);
   }
-  
+
   const addTodo = () => {
     setCurrentTodo({
       ...newTodo,
@@ -28,8 +30,6 @@ const TodoApp = () => {
     });
     setShowEditModal(true);
   }
-
-  const closeEdit = () => setShowEditModal(false);
 
   const startList = [
     { id: uuid(), added: new Date().toDateString(), task: 'Do laundry', completed: true },
@@ -59,7 +59,7 @@ const TodoApp = () => {
       ];
     }
     save(tds);
-    closeEdit();
+    setShowEditModal(false);
   };
 
   const deleteTodo = (todo) => {
@@ -78,6 +78,15 @@ const TodoApp = () => {
     save(todos.map((td) => todo.id === td.id ? todo : td))
   }
 
+  useEffect(() => {
+    console.log("Mounted");
+    // this would be a good place to see if a user is still logged in, has a valid token and fetch user data from api 
+    /*
+    fetch('/api/getNotes')
+      .then(({ results }) => save(results));
+    */
+  },[]);
+
   return (
     <div className="gradient">
 
@@ -90,9 +99,19 @@ const TodoApp = () => {
 
       <div className="container">
 
+        <div role="button" onClick={() => setShowLoginModal(true)}>
+          <h3>Login</h3>
+        </div>
+
+        <LoginModal
+          show={showLoginModal}
+          close={() => setShowLoginModal(false)}
+          currentTodo={currentTodo}
+        />
+
         <EditModal
           show={showEditModal}
-          closeEdit={closeEdit}
+          close={() => setShowEditModal(false)}
           currentTodo={currentTodo}
           handleChangeTask={handleChangeTask}
           toggleComplete={toggleComplete}
